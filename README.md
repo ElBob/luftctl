@@ -1,6 +1,8 @@
 # luftctl
 
-Small ESP32-C3 controller board to power two 12V PWM fans from a single USB plug.
+Small ESP32-C3 controller board to power two 12V PWM fans from a single USB-C plug.
+
+![](images/pcb-render.png)
 
 ## hardware
 
@@ -8,7 +10,11 @@ Schematic and PCB design can be found in [`hardware/`](hardware/). It is a KiCAD
 
 The schematic is available as [a PDF](schematic.pdf).
 
+For hand-soldering, you can use the [interactive BOM viewer](hardware/ibom.html).
+
 ## firmware
+
+### micropython
 
 The first simple test just loops through {`5V/off`, `5V/on`, `12V/off`, `12V/on`} with every button press.
 
@@ -27,6 +33,12 @@ ampy -p /dev/ttyACM0 reset --hard
 ```
 
 The red LED will blink upon every state change.
+
+### esphome
+
+Since the ESP32-C3 is easily supported by ESPHome, you can also add it in your HomeAssistant automation using the [provided example YAML](esphome/luftctl.yaml).
+
+![](esphome/screenshot.png)
 
 ## images
 
