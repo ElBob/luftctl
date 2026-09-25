@@ -14,12 +14,13 @@ PWM Fan,"J4,J5",Connector:FanPinHeader_1x04_P2.54mm_Vertical,CC7501262
 Conn_01x08,J6,Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical,CC7501266
 Bootloader,JP1,Button_Switch_SMD:SW_SPST_PTS810,
 10µH,L2,Inductor_SMD:L_Bourns_SRN6045TA,CC17236259
-10kΩ,"R3,R6,R7,R8",Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,CC7468432
+10kΩ,"R3,R6,R7,R8,R15",Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,CC7468432
 660Ω,R9,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
 2.2kΩ,R10,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,CC7471245
 100kΩ,R11,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,CC7319379
 22kΩ,R12,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,CC6457890
-0Ω,"R13,R14,R15",Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,CC7468447
+0Ω,"R13,R14",Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,CC7468447
+1kΩ,R16,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,CC6654733
 Reset,SW1,Button_Switch_SMD:SW_SPST_PTS810,
 USBLC6-4SC6,U3,Package_TO_SOT_SMD:SOT-23-6,CC6807798
 ESP32-C3-WROOM-02,U4,RF_Module:ESP-WROOM-02,

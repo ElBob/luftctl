@@ -26,13 +26,51 @@ Done in the schematic:
    (Cin→VIN/GND tight, short SW node, FB away from SW) per the layout notes below.
    Then re‑run the JLCPCB `jlcpcb/` generation (those files are pre‑mod).
 
-**Verify before ordering** (values I set are sensible defaults, not gospel):
-- **CH224K CFG straps** (R13/R14/R15 = CFG1/2/3→GND): populate per the CH224K
-  datasheet table for **12 V** — this sets the requested voltage, so get it right.
-- **Buck FB divider** R11=100 kΩ / R12=22 kΩ assumes the LMR514xx 0.6 V reference
-  (→3.3 V). Confirm Vref in the datasheet.
-- **CH224K footprint** set to `SSOP-10-1EP_3.9x4.9mm` (KiCad default); confirm it
-  matches your ordered package. Buck is SOT‑23‑6, L2 reuses the SRN6045 footprint.
+## Datasheet-confirmed values (researched + cross-verified, high confidence)
+
+### CH224K — request 12 V  (source: WCH CH224 datasheet V2.0, §6.2 / §7.1)
+
+Standalone I/O-strap truth table (**CH224K**, not the CH224A/Q table):
+
+| CFG1 | CFG2 | CFG3 | Request |
+|:----:|:----:|:----:|:--------|
+| 1 | X | X | 5 V |
+| 0 | 0 | 0 | 9 V |
+| **0** | **0** | **1** | **12 V** |
+| 0 | 1 | 1 | 15 V |
+| 0 | 1 | 0 | 20 V |
+
+`0` = strap to GND, `1` = HIGH. **CH224K has NO internal pull-ups on CFG2/CFG3**,
+so a `1` must be pulled up externally — it cannot float.
+
+> ⚠️ **Two bugs in the current netlist — the board as drawn would give 9 V and a dead chip:**
+> 1. **R15/CFG3 is strapped to GND (=0) → selects 9 V, not 12 V.** CFG3 must be
+>    **pulled HIGH to VDD via ~10 kΩ** (the reference schematic value), not tied to GND.
+>    Keep R13/CFG1→GND and R14/CFG2→GND (both `0`, correct).
+> 2. **VDD (pin 1) is not powered** — it only has C15 (1 µF) to GND. VDD must be fed
+>    **from VBUS through a ~1 kΩ series resistor** (reference-schematic value; VDD is a
+>    ~3.6 V shunt-regulated logic rail). Without it the chip never runs. This is the
+>    "power pin not driven" ERC warning. Add R_VDD (VBUS→VDD, 1 kΩ).
+> 3. **VBUS (pin 8) sense** should reach the pin through a **series resistor**, not a
+>    direct tie to the 12 V rail (per the reference schematic).
+>
+> So: R13 = 0 Ω (CFG1→GND) ✔, R14 = 0 Ω (CFG2→GND) ✔, **R15 = 10 kΩ pull-up CFG3→VDD**,
+> **add R_VDD = 1 kΩ VBUS→VDD**, and a series R on the VBUS-sense pin. PG/DP/DM stay NC.
+> (I2C config is not available on CH224K.)
+
+### LMR51420 — set 3.3 V  (source: TI SLUSEF6C, §7.6 / §9.2.2.2, Eq. 9)
+
+- **VREF = 0.600 V**; `Vout = VREF · (1 + RFBT/RFBB)`.
+- TI's 3.3 V typical value: **RFBT (R11) = 100 kΩ, RFBB (R12) = 22.1 kΩ → 3.315 V**.
+- **Current board R11 = 100 kΩ / R12 = 22 kΩ → 3.327 V (+0.8 %)** — in tolerance and
+  fine to leave; swap R12 to **22.1 kΩ (E96)** for the datasheet-exact +0.45 %.
+- **No feedforward cap** — the LMR51420 is internally compensated (do NOT reuse the
+  old boost's 220 pF C6).
+
+### Footprint
+
+- **CH224K** is `SSOP-10-1EP_3.9x4.9mm` (KiCad default here); confirm against the exact
+  package you order. Buck is SOT-23-6; L2 reuses the SRN6045 6×6 footprint.
 
 ---
 
