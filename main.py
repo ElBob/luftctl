@@ -5,9 +5,8 @@
 from machine import Pin as pin, PWM as pwm
 from time import sleep, ticks_ms as ticks, ticks_diff as diff
 
-# 12v enable
-en = pin(3, pin.OUT, pin.PULL_DOWN)
-en.off()
+# 12V now comes straight from USB-C PD (always on) - no boost enable anymore.
+# GPIO3 is free and broken out on the J6 header (with GPIO2 and GPIO8).
 
 # fan pwms
 pwmfreq = 25000
@@ -29,14 +28,14 @@ def blink():
   sleep(0.04)
 
 
-# states to cycle through
+# states to cycle through (fans stop at 0% pwm; 12V is always present)
 states = [
-  #  label   en  fan1   fan2  led
-  (  "off",  0,  0.00,  0.00,    0 ),
-  (  "20%",  1,  0.20,  0.20,  100 ),
-  (  "45%",  1,  0.45,  0.45,  300 ),
-  (  "65%",  1,  0.65,  0.65,  400 ),
-  ( "100%",  1,  1.00,  1.00,  800 ),
+  #  label  fan1   fan2  led
+  (  "off",  0.00,  0.00,    0 ),
+  (  "20%",  0.20,  0.20,  100 ),
+  (  "45%",  0.45,  0.45,  300 ),
+  (  "65%",  0.65,  0.65,  400 ),
+  ( "100%",  1.00,  1.00,  800 ),
 ]
 
 # button callback for state change
@@ -49,11 +48,10 @@ def nextstate(_):
     return
   now = ticks()
   i = (i+1) % len(states)
-  txt, e, d1, d2, l = states[i]
+  txt, d1, d2, l = states[i]
   print(f"[{i+1}/{len(states)}] {txt} {l}")
   f1.duty(int(d1*1023))
   f2.duty(int(d2*1023))
-  en.value(e)
   blink()
   led.duty(l)
 

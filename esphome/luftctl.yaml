@@ -11,7 +11,7 @@ esphome:
 
   on_boot:
     - then:
-      - switch.turn_on: enable12v
+      # 12V now comes straight from USB-C PD (always on) - no boost enable.
       - fan.turn_off: fan1_control
       - fan.turn_off: fan2_control
 
@@ -104,14 +104,8 @@ output:
     pin: GPIO6
     frequency: 25kHz
 
-switch:
-
-  # Enable boost converter with GPIO: https://esphome.io/components/output/gpio/
-
-  - id: enable12v
-    name: Enable 12V Boost
-    platform: gpio
-    pin: GPIO3
+# GPIO2, GPIO3 and GPIO8 (+ UART TX/RX) are free on the J6 breakout header.
+# Note: GPIO2/GPIO8 are boot-strapping pins - keep them high at reset.
 
 fan:
 
