@@ -39,7 +39,7 @@ for line in csv.DictReader(open(OUT/"bom_raw.csv", newline="")):
     if des.split(",")[0] in SKIP_FIRST:
         report.append((des,val,"—","excluded (logo/test point)")); continue
     lcsc,note = ASSIGN.get(val,(None,"UNHANDLED"))
-    rows.append([val,des,fp,f"C{lcsc}" if isinstance(lcsc,str) and lcsc.startswith("C") else (lcsc or "")])
+    rows.append([val,des,fp, lcsc or ""])
     report.append((des,val, (lcsc or "— none —"), note))
 csv.writer(open(OUT/"luftctl-mod-bom.csv","w",newline="")).writerows(rows)
 
