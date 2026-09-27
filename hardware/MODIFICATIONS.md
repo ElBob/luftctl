@@ -216,3 +216,102 @@ the pre‑mod board.
   removed (12 V is always present now); fans are off at PWM = 0 %. GPIO2/3/8 and
   UART are noted as available on J6. See those files.
 - Note for connected peripherals: **J2/J3 power pin is now 3.3 V, not 5 V.**
+
+---
+
+## Module sourcing (U4)
+
+- **Part: `ESP32-C3-WROOM-02-N4`, LCSC `C2934560`** — 9,524 in stock at JLCPCB
+  assembly, min order **1**, ~$3.29 @ qty 1. This is the **PCB‑antenna** variant,
+  which matches the original board's footprint (`RF_Module:ESP-WROOM-02`) and its
+  antenna keep‑out — a **drop‑in** with **no re‑layout, no firmware change, and no
+  external antenna** required.
+- Do **not** use the `-02U` (U.FL) variant: it needs an external antenna and only
+  ships as a high‑minimum pre‑order. All ESP32‑C3‑WROOM‑02/MINI‑1 and S3‑WROOM‑1
+  modules are 0 immediate JLCPCB assembly stock as pre‑orders (30–100 unit mins);
+  `C2934560` is the only low‑minimum in‑stock C3 module.
+- **Antenna keep‑out (verified):** the module's PCB‑antenna region (x≈136.3–164.4,
+  y≈50.0–56.1) is a rule area on **both F.Cu and B.Cu** (no zone fill, no tracks,
+  no vias). The added B.Cu ground plane is correctly carved out of it; no tracks or
+  vias intrude the antenna rectangle. Keep U4's antenna edge at the board edge.
+
+---
+
+## BOM sourcing — use JLCPCB **Basic** parts for jellybeans
+
+The first BOM pass assigned **Extended** parts to every passive (an artifact of a
+sparse parts-DB snapshot). Extended parts each carry a per-type loading fee, a reel
+MOQ (~20–50), and count against the Economic-tier extended-part limit. All passives
+have been re-sourced to **Basic** parts (no fee, no MOQ, buy exactly what's needed).
+Sourced via `jlcsearch.tscircuit.com` (`is_basic=true`, in-stock, 0805):
+
+| Value | Refs | LCSC (Basic) | MFR / notes |
+|---|---|---|---|
+| 10 kΩ | R3,R6,R7,R8,R15 | **C17414** | 0805W8F1002T5E, 1% |
+| 2.2 kΩ | R10 | **C17520** | 0805W8F2201T5E |
+| 100 kΩ | R11 | **C149504** | 0805W8F1003T5E (buck FB top) |
+| 22 kΩ | R12 | **C17560** | 0805W8F2202T5E (buck FB bot) |
+| 1 kΩ | R16 | **C17513** | 0805W8F1001T5E (CH224K VDD feed) |
+| 0 Ω | R13,R14 | **C17477** | 0805W8F0000T5E (CFG straps) |
+| 680 Ω | R9 | **C17798** | was 660 Ω; nearest Basic E24, D2 LED limit (~1.9 mA) |
+| 4.7 µF 25 V | C1,C7 | **C1779** | CL21A475KAQNNNE X5R (12 V rail) |
+| 1 µF 50 V | C3,C4,C15 | **C28323** | CL21B105KBFNNNE X7R |
+| 100 nF 50 V | C5,C9,C11,C12 | **C49678** | CC0805KRX7R9BB104 |
+| 10 µF 25 V | C8,C10,C13 | **C15850** | CL21A106KAYNNNE X5R (12 V rail) |
+| 22 µF 25 V | C14 | **C45783** | CL21A226MAQNNNE X5R (3V3 rail) |
+| Red LED | D2,D3 | **C84256** | NCD0805R1 |
+
+**Switches SW1/JP1:** re-spun from `SW_SPST_PTS810` (OOS) to Basic tact **C231329**
+(Omron B3U-1000P, 3×2.5 mm) on footprint `Button_Switch_SMD:SW_SPST_B3U-1000P`;
+board re-routed locally. (The larger XKB TS-1187A was tried first but its ±3 mm
+pads collided with D2/R9 — B3U's ±1.7 mm pads fit the PTS810 envelope cleanly.)
+**J2/J3 JST-SH:** **C160404** (SM04B-SRSS-TB, side-entry, fits existing footprint).
+**U5 CH224K:** **C970725** — only listing; JLCPCB main stock 0 but 114 idle-parts
+stock (covers a 5-board run).
+**J4/J5 fan + J6 breakout headers:** removed from the assembly BOM (hand-soldered).
+
+Remaining **Extended** parts (no viable Basic swap — verified): U4 ESP32
+(C2934560), U6 LMR51420 buck (C7296200 — Basic regulators are LDOs, too lossy),
+U3 USBLC6 (C6807798 — no Basic ESD array), U5 CH224K, J1 USB-C (C165948 — no Basic
+USB-C), J2/J3 JST-SH (all Extended), FB1 ferrite (C6750922 — Basic 0805 beads max
+800 mA vs the 2 A this VBUS→+12V bead carries), L2 inductor (C17236259 — only 2
+Basic 10 µH exist; 17-stock covers the run). SW1/JP1 are the only IC/connector/
+switch line that could go Basic.
+
+---
+
+## Order plan (current)
+
+**Full JLCPCB assembly, 5 boards, Economic.** The draft order is saved in the
+JLCPCB account (SMT order `pcbFileNo=17fc5232720c43a29fb01457f2768e8f`). It has not
+been placed. BOM `luftctl-mod-bom.csv` (25 lines) and CPL `luftctl-mod-cpl.csv`
+(38 placements) match 1:1. Hand-soldered by the owner, not in the BOM/CPL:
+J4/J5 fan headers (keyed 4-pin, e.g. Molex 47053-1000) and J6 (1x8 2.54 mm header).
+
+## To do before ordering
+
+1. **Wait for CH224K (U5, C970725) to restock.** JLCPCB assembly stock is 0
+   (5 short). No Basic substitute exists, and in-stock alternatives (HUSB238,
+   IP2721, AP33772) would mean redesigning the U5 section, so we're waiting.
+2. **Re-upload the fab files** to the draft order once U5 is back: gerber
+   `luftctl-modified-gerber.zip`, `luftctl-mod-bom.csv`, `luftctl-mod-cpl.csv`.
+   In JLCPCB's placement preview, check that D4's cathode band faces J1 (pad 1,
+   the VBUS side). A reversed TVS would short VBUS to GND.
+
+## Done (2026-09-27)
+
+- **Buttons SW1/JP1** swapped from B3U-1000P (C231329, Extended) to
+  **TS-1088-AR02016 (C720477, Basic)**, footprint `SW_SPST_TS-1088-xR020`.
+- **U3 USBLC6 pin 5 disconnected from VBUS** (now no-connect in the schematic and
+  unconnected on the board). VBUS is 12 V after PD negotiation and the USBLC6
+  supply-pin clamp starts conducting around 6 V. Pin 5 is left floating rather
+  than tied to +3V3, because CC1/CC2 (U3 pins 1/6) sit near 5 V and would leak
+  into the 3.3 V rail. D+/D- keep their ESD protection (needed for flashing the
+  ESP32-C3 over native USB).
+- **Added D4, SMF15A TVS (C19077509, SOD-123FL, 15 V standoff)** from VBUS to
+  GND, placed above J1 with a via to the B.Cu ground plane. Extended part, but the
+  button swap removed one, so the Extended count is unchanged.
+- Re-routed locally (existing tracks locked). DRC: 0 unconnected, no shorts or
+  clearance errors; the 12 remaining items are the pre-existing ones (FAN1_Tacho
+  near the board edge, J4/J5 hole spacing, courtyard margins). Board matches the
+  schematic netlist on all 153 pads. Antenna keep-out still clear.
