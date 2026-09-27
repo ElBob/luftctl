@@ -10735,7 +10735,7 @@
 			)
 		)
 	)
-	(gr_text "3V3"
+	(gr_text "12V"
 		(at 134.4 67 0)
 		(layer "F.SilkS")
 		(uuid "e39675aa-65f5-466b-ad4f-bcd030bc290c")
