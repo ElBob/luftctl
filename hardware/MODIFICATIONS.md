@@ -273,9 +273,8 @@ stock (covers a 5-board run).
 Remaining **Extended** parts (no viable Basic swap — verified): U4 ESP32
 (C2934560), U6 LMR51420 buck (C7296200 — Basic regulators are LDOs, too lossy),
 U3 USBLC6 (C6807798 — no Basic ESD array), U5 CH224K, J1 USB-C (C165948 — no Basic
-USB-C), J2/J3 JST-SH (all Extended), FB1 ferrite (C6750922 — Basic 0805 beads max
-800 mA vs the 2 A this VBUS→+12V bead carries), L2 inductor (C17236259 — only 2
-Basic 10 µH exist; 17-stock covers the run). SW1/JP1 are the only IC/connector/
+USB-C), J2/J3 JST-SH (all Extended), FB1 ferrite (C85840 Murata BLM21PG221SN1D, 2 A — Basic 0805 beads max 800 mA),
+L2 inductor (C2046332 Bourns SRN6045TA-100M, the footprint's exact part). SW1/JP1 are the only IC/connector/
 switch line that could go Basic.
 
 ---
@@ -299,6 +298,13 @@ J4/J5 fan headers (keyed 4-pin, e.g. Molex 47053-1000) and J6 (1x8 2.54 mm heade
    the VBUS side). A reversed TVS would short VBUS to GND.
 
 ## Done (2026-09-27)
+
+- **L2 -> C2046332, FB1 -> C85840.** The previous listings (C17236259,
+  C6750922) have no JLCPCB/EasyEDA footprint data, so the placement preview
+  couldn't place them. Same footprints; BOM-only change.
+- **Assembly tip:** JLCPCB auto-unchecks BOM lines that share a part number
+  (D2/D3, J2/J3, JP1/SW1) with a "multiple lines matched to the same part"
+  warning. Re-tick them every time the BOM is re-processed.
 
 - **Buttons SW1/JP1** swapped from B3U-1000P (C231329, Extended) to
   **TS-1088-AR02016 (C720477, Basic)**, footprint `SW_SPST_TS-1088-xR020`.
