@@ -3336,22 +3336,6 @@
   )
 
 
-  (symbol (lib_id "power:GND") (at 67.31 80.01 0) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid 9a9e9a4a-4d55-4aca-b958-cc420a7bca33)
-    (property "Reference" "#PWR0104" (id 0) (at 67.31 86.36 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (id 1) (at 67.437 84.4042 0))
-    (property "Footprint" "" (id 2) (at 67.31 80.01 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (id 3) (at 67.31 80.01 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid eb4e1615-35ea-4e70-b935-0d28ffa9a52d))
-  )
-
   (symbol (lib_id "Device:C_Small") (at 45.72 115.57 180) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 9d4af416-cee7-4d06-8681-39f380f93098)
@@ -3370,25 +3354,6 @@
     (pin "1" (uuid bae3135c-f16d-422c-a3ef-4f13332d9b91))
     (pin "2" (uuid 59581989-348b-412e-aedc-560befba3e2f))
   )
-
-  (symbol (lib_id "Connector:TestPoint_Probe") (at 67.31 80.01 0) (unit 1)
-    (in_bom yes) (on_board yes) (fields_autoplaced)
-    (uuid a04199d5-1929-4c71-b1c1-ac84e1319139)
-    (property "Reference" "TP4" (id 0) (at 71.12 77.1524 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "Test" (id 1) (at 71.12 79.6924 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm" (id 2) (at 72.39 80.01 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 72.39 80.01 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid c5d85cf6-c545-4464-988f-d63010faaf7b))
-  )
-
 
   (symbol (lib_id "power:GND") (at 88.9 162.56 0) (unit 1)
     (in_bom yes) (on_board yes)
@@ -3709,24 +3674,6 @@
     (pin "2" (uuid 7c0c6414-cf14-40ee-a58d-6213173011ef))
     (pin "3" (uuid 906c8289-11ad-4618-ad01-5ec9f9e4c820))
     (pin "4" (uuid dea5a5fc-52f9-4fcf-9ba0-d0138014dda4))
-  )
-
-  (symbol (lib_id "Connector:TestPoint_Probe") (at 107.95 110.49 0) (unit 1)
-    (in_bom yes) (on_board yes) (fields_autoplaced)
-    (uuid e2205131-398e-4b23-a7cb-6ed24a167152)
-    (property "Reference" "TP1" (id 0) (at 111.76 107.6324 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "Test" (id 1) (at 111.76 110.1724 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm" (id 2) (at 113.03 110.49 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 113.03 110.49 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 772a2060-71e5-4b1b-8f4a-4851fe983f59))
   )
 
   (symbol (lib_id "Device:C_Small") (at 90.17 40.64 180) (unit 1)
@@ -4767,9 +4714,6 @@
     (path "/55db04cb-8f36-4940-9aa1-d84d545e7264"
       (reference "#PWR0103") (unit 1) (value "GND") (footprint "")
     )
-    (path "/9a9e9a4a-4d55-4aca-b958-cc420a7bca33"
-      (reference "#PWR0104") (unit 1) (value "GND") (footprint "")
-    )
     (path "/b74c8878-ebea-4c0e-af6a-e2125fba37ee"
       (reference "A1") (unit 1) (value "2022") (footprint "ansemjo:ahoi")
     )
@@ -4842,17 +4786,11 @@
     (path "/4f7ea4a8-8301-4901-932a-b6880e260ab7"
       (reference "SW1") (unit 1) (value "Reset") (footprint "Button_Switch_SMD:SW_SPST_TS-1088-xR020")
     )
-    (path "/e2205131-398e-4b23-a7cb-6ed24a167152"
-      (reference "TP1") (unit 1) (value "Test") (footprint "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm")
-    )
     (path "/6d148275-a67a-4433-85c5-2078a8f76090"
       (reference "TP2") (unit 1) (value "Test") (footprint "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm")
     )
     (path "/a9b83656-64b5-4ccf-9c61-d77afce9d9cb"
       (reference "TP3") (unit 1) (value "Test") (footprint "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm")
-    )
-    (path "/a04199d5-1929-4c71-b1c1-ac84e1319139"
-      (reference "TP4") (unit 1) (value "Test") (footprint "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm")
     )
     (path "/e7c5d7a0-c546-488a-8bb3-fe81c8ca39ca"
       (reference "U3") (unit 1) (value "USBLC6-4SC6") (footprint "Package_TO_SOT_SMD:SOT-23-6")

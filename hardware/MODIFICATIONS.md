@@ -299,6 +299,23 @@ J4/J5 fan headers (keyed 4-pin, e.g. Molex 47053-1000) and J6 (1x8 2.54 mm heade
 
 ## Done (2026-09-27)
 
+- **Compact outline: 56.7 x 32.1 mm** (was 56.7 x 43.1). Board is centred
+  vertically on the two fan headers (y = 62.45); USB-C (J1) moved down 5 mm to the
+  same centre line. Top edge moved up 2.5 mm to keep it symmetric; that strip is
+  inside the antenna keep-out (now y 46.75-56.1, both layers).
+  - Bottom edge: J6 with pin labels above the pins.
+  - Buck (U6, L2, C12-C14, R11, R12) beside SW1; CH224K group (U5, R13-R15, C15)
+    under J1; D4 and R16 above J1.
+  - Removed TP1 and TP4 (12 V is on the fan headers/TP2, GND on J6).
+    "2022 ansemjo" moved to the back silkscreen.
+  - Ground is now poured on **both** layers with a via-stitching grid; DRC
+    0 unconnected, no shorts/clearance errors (remaining items are the
+    pre-existing FAN1_Tacho edge track, J4/J5 hole spacing, courtyard margins).
+  - Small-part reference designators in the dense clusters are hidden on the
+    silkscreen (fab/assembly use the BOM/CPL designators).
+  - **Check in JLCPCB placement preview:** U5 (CH224K) rotation, since it has not
+    been previewed yet (it was out of stock).
+
 - **Removed J2 (UART) and J3 (I2C) JST-SH connectors.** UART was already on
   J6 and flashing/logs go over native USB. SDA (GPIO0) and SCL (GPIO1) moved to
   J6, which is now a 1x10 header: 3V3, GND, IO2, IO3, IO8, RX, TX, GND, SDA, SCL
