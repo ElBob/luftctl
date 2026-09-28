@@ -299,6 +299,11 @@ J4/J5 fan headers (keyed 4-pin, e.g. Molex 47053-1000) and J6 (1x8 2.54 mm heade
 
 ## Done (2026-09-27)
 
+- **Removed J2 (UART) and J3 (I2C) JST-SH connectors.** UART was already on
+  J6 and flashing/logs go over native USB. SDA (GPIO0) and SCL (GPIO1) moved to
+  J6, which is now a 1x10 header: 3V3, GND, IO2, IO3, IO8, RX, TX, GND, SDA, SCL
+  (pin labels on the silkscreen). Drops the C160404 Extended line.
+
 - **L2 -> C2046332, FB1 -> C85840.** The previous listings (C17236259,
   C6750922) have no JLCPCB/EasyEDA footprint data, so the placement preview
   couldn't place them. Same footprints; BOM-only change.

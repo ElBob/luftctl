@@ -104,7 +104,11 @@ output:
     pin: GPIO6
     frequency: 25kHz
 
-# GPIO2, GPIO3 and GPIO8 (+ UART TX/RX) are free on the J6 breakout header.
+# J6 breakout (2.54 mm, 10 pins): 3V3, GND, GPIO2, GPIO3, GPIO8, RX (GPIO20),
+# TX (GPIO21), GND, SDA (GPIO0), SCL (GPIO1). For an I2C sensor add e.g.:
+#   i2c:
+#     sda: GPIO0
+#     scl: GPIO1
 # Note: GPIO2/GPIO8 are boot-strapping pins - keep them high at reset.
 
 fan:
