@@ -299,7 +299,9 @@ J4/J5 fan headers (keyed 4-pin, e.g. Molex 47053-1000) and J6 (1x8 2.54 mm heade
 ## Done (2026-09-27)
 
 - **Switch inputs J7 (GPIO3 + GND) and J8 (GPIO8 + GND):** 2-pin 2.54 mm headers
-  on the right edge, above and below USB-C (symmetric about the centre line).
+  standing vertically along the USB-C (right) edge, one above and one below the
+  port (symmetric about the centre line; GND pins nearest USB-C). Board extended
+  3 mm to the right for them: **59.75 x 32.1 mm**.
   Silkscreen "IO3"/"IO8"; pin 1 (square) is the GPIO, pin 2 is GND. ESPHome:
   `Switch 1`/`Switch 2` binary sensors with internal pull-ups (see yaml). GPIO8 is
   a strapping pin but only matters for download mode (don't hold that switch
