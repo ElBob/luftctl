@@ -10087,8 +10087,8 @@
 			)
 		)
 	)
-	(gr_text "2022 ansemjo"
-		(at 160 74 0)
+	(gr_text "2026 elbob"
+		(at 163 73 0)
 		(layer "B.SilkS")
 		(uuid "7e2f26dd-4315-4560-b328-7568050d8ccd")
 		(effects
