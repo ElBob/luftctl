@@ -11,12 +11,11 @@ SMF15A,D4,Diode_SMD:D_SOD-123F,C19077509
 USB_C_Receptacle_USB2.0,J1,Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12,C165948
 Bootloader,JP1,Button_Switch_SMD:SW_SPST_TS-1088-xR020,C720477
 10µH,L2,Inductor_SMD:L_Bourns_SRN6045TA,C2046332
-10kΩ,"R3,R6,R7,R8,R15",Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,C17414
+10kΩ,"R6,R7,R8,R15",Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,C17414
 680Ω,R9,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,C17798
 2.2kΩ,R10,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,C17520
 100kΩ,R11,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,C149504
 22kΩ,R12,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,C17560
-0Ω,"R13,R14",Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,C17477
 1kΩ,R16,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,C17513
 Reset,SW1,Button_Switch_SMD:SW_SPST_TS-1088-xR020,C720477
 USBLC6-4SC6,U3,Package_TO_SOT_SMD:SOT-23-6,C6807798

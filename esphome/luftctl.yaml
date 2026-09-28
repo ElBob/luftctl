@@ -58,6 +58,33 @@ binary_sensor:
         input: true
         pullup: true
 
+  # Switch inputs on J7 (GPIO3) and J8 (GPIO8), next to the USB-C port.
+  # Wire a switch between the two pins (GPIO and GND); on = switch closed.
+  - id: switch_1
+    name: Switch 1
+    platform: gpio
+    pin:
+      number: GPIO3
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    filters:
+      - delayed_on_off: 20ms
+
+  - id: switch_2
+    name: Switch 2
+    platform: gpio
+    pin:
+      number: GPIO8
+      inverted: true
+      ignore_strapping_warning: true  # only matters when holding BOOT to flash
+      mode:
+        input: true
+        pullup: true
+    filters:
+      - delayed_on_off: 20ms
+
 sensor:
 
   # FAN tachometer inputs: https://esphome.io/components/sensor/pulse_counter/
@@ -104,12 +131,13 @@ output:
     pin: GPIO6
     frequency: 25kHz
 
-# J6 breakout (2.54 mm, 10 pins): 3V3, GND, GPIO2, GPIO3, GPIO8, RX (GPIO20),
-# TX (GPIO21), GND, SDA (GPIO0), SCL (GPIO1). For an I2C sensor add e.g.:
+# J6 breakout (2.54 mm, 8 pins): 3V3, GND, GPIO2, RX (GPIO20), TX (GPIO21), GND,
+# SDA (GPIO0), SCL (GPIO1). J7/J8 (2-pin, by USB-C) = GPIO3/GPIO8 + GND switch inputs.
+# For an I2C sensor add e.g.:
 #   i2c:
 #     sda: GPIO0
 #     scl: GPIO1
-# Note: GPIO2/GPIO8 are boot-strapping pins - keep them high at reset.
+# Note: GPIO2 is a boot-strapping pin - keep it high at reset.
 
 fan:
 

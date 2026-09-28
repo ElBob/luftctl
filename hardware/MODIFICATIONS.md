@@ -252,7 +252,6 @@ Sourced via `jlcsearch.tscircuit.com` (`is_basic=true`, in-stock, 0805):
 | 100 kΩ | R11 | **C149504** | 0805W8F1003T5E (buck FB top) |
 | 22 kΩ | R12 | **C17560** | 0805W8F2202T5E (buck FB bot) |
 | 1 kΩ | R16 | **C17513** | 0805W8F1001T5E (CH224K VDD feed) |
-| 0 Ω | R13,R14 | **C17477** | 0805W8F0000T5E (CFG straps) |
 | 680 Ω | R9 | **C17798** | was 660 Ω; nearest Basic E24, D2 LED limit (~1.9 mA) |
 | 4.7 µF 25 V | C1,C7 | **C1779** | CL21A475KAQNNNE X5R (12 V rail) |
 | 1 µF 50 V | C3,C4,C15 | **C28323** | CL21B105KBFNNNE X7R |
@@ -298,6 +297,22 @@ J4/J5 fan headers (keyed 4-pin, e.g. Molex 47053-1000) and J6 (1x8 2.54 mm heade
    the VBUS side). A reversed TVS would short VBUS to GND.
 
 ## Done (2026-09-27)
+
+- **Switch inputs J7 (GPIO3 + GND) and J8 (GPIO8 + GND):** 2-pin 2.54 mm headers
+  on the right edge, above and below USB-C (symmetric about the centre line).
+  Silkscreen "IO3"/"IO8"; pin 1 (square) is the GPIO, pin 2 is GND. ESPHome:
+  `Switch 1`/`Switch 2` binary sensors with internal pull-ups (see yaml). GPIO8 is
+  a strapping pin but only matters for download mode (don't hold that switch
+  closed while flashing with BOOT).
+- **Removed R3** (10 kΩ GPIO3 pull-down left over from the old 12 V-enable); it
+  would have held the switch input low.
+- **J6 back to 8 pins:** 3V3, GND, IO2, RX, TX, GND, SDA, SCL.
+- **CH224K CFG1/CFG2 tied straight to GND** (R13/R14 0 Ω straps removed) — same
+  12 V setting, two fewer parts. Changing the PD voltage later means cutting a
+  trace/adding a strap instead of swapping a resistor.
+- Added 0.5 mm no-track strips along all board edges so routing can't crowd the
+  edge; this also cleared the old FAN1_Tacho edge violation. DRC: 0 unconnected,
+  only J4/J5 hole spacing and courtyard-margin warnings remain.
 
 - **Compact outline: 56.7 x 32.1 mm** (was 56.7 x 43.1). Board is centred
   vertically on the two fan headers (y = 62.45); USB-C (J1) moved down 5 mm to the
